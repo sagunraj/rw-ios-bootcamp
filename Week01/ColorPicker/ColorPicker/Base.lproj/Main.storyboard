@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -46,7 +45,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QR6-dX-Xlb">
                                                         <rect key="frame" x="0.0" y="40" width="374" height="30"/>
                                                         <subviews>
-                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="KzC-Hi-Iwy">
+                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzC-Hi-Iwy">
                                                                 <rect key="frame" x="-2" y="0.0" width="359.5" height="31"/>
                                                                 <connections>
                                                                     <action selector="onSliderChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="8uP-5h-OGR"/>
@@ -75,7 +74,7 @@
                                                                     <action selector="onSliderChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="poL-l2-M6w"/>
                                                                 </connections>
                                                             </slider>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDR-2Z-mJm">
+                                                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDR-2Z-mJm">
                                                                 <rect key="frame" x="363.5" y="0.0" width="10.5" height="30"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -98,7 +97,7 @@
                                                                     <action selector="onSliderChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="0qj-e4-VkU"/>
                                                                 </connections>
                                                             </slider>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iB-XL-ejW">
+                                                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iB-XL-ejW">
                                                                 <rect key="frame" x="363.5" y="0.0" width="10.5" height="30"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -136,7 +135,6 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstItem="hSx-jt-FSa" firstAttribute="centerX" secondItem="7mF-P0-R5g" secondAttribute="centerX" id="SSP-uy-q9w"/>
                                             <constraint firstItem="MPF-If-Gla" firstAttribute="top" secondItem="hSx-jt-FSa" secondAttribute="bottom" constant="40" id="WLI-NQ-EGm"/>
@@ -181,6 +179,9 @@
                         <outletCollection property="sliders" destination="KzC-Hi-Iwy" collectionClass="NSMutableArray" id="XWs-Ty-x0M"/>
                         <outletCollection property="sliders" destination="5at-W5-SD1" collectionClass="NSMutableArray" id="ZaL-3h-cMb"/>
                         <outletCollection property="sliders" destination="Xrg-Jc-okW" collectionClass="NSMutableArray" id="Pa9-Rq-7At"/>
+                        <outletCollection property="sliderValueLabels" destination="xvJ-P3-rCZ" collectionClass="NSMutableArray" id="dJM-RS-YKx"/>
+                        <outletCollection property="sliderValueLabels" destination="tDR-2Z-mJm" collectionClass="NSMutableArray" id="UZy-vI-7GG"/>
+                        <outletCollection property="sliderValueLabels" destination="1iB-XL-ejW" collectionClass="NSMutableArray" id="Fjb-hf-swo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
