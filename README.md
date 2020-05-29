@@ -1,6 +1,7 @@
 # rw-ios-bootcamp
 
 ## Developer's Bio
+![Sagun Raj Lage](./sagun-raj-lage.jpg "Developer's Photo")
 ```
 Name: Sagun Raj Lage
 
