@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="ColorPicker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,7 +46,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QR6-dX-Xlb">
                                                         <rect key="frame" x="0.0" y="40" width="374" height="30"/>
                                                         <subviews>
-                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzC-Hi-Iwy">
+                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="KzC-Hi-Iwy">
                                                                 <rect key="frame" x="-2" y="0.0" width="359.5" height="31"/>
                                                                 <connections>
                                                                     <action selector="onSliderChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="8uP-5h-OGR"/>
@@ -158,6 +158,9 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z6f-9L-8e4">
                                 <rect key="frame" x="369" y="818" width="25" height="24"/>
+                                <connections>
+                                    <action selector="onInfoButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ONn-Ct-rxG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -192,6 +195,74 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="102"/>
+        </scene>
+        <!--Info View Controller-->
+        <scene sceneID="ThY-Fj-50A">
+            <objects>
+                <viewController storyboardIdentifier="InfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yeo-Qd-WNR" customClass="InfoViewController" customModule="ColorPicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="z3u-pe-G6V">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Niq-ZT-H2Y">
+                                <rect key="frame" x="0.0" y="44" width="414" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-ot-MRp">
+                                        <rect key="frame" x="10" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="LvI-4h-Jkp"/>
+                                            <constraint firstAttribute="width" secondItem="Wcp-ot-MRp" secondAttribute="height" multiplier="1:1" id="O8b-hf-bua"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onCloseTap:" destination="yeo-Qd-WNR" eventType="touchUpInside" id="LCt-Ax-234"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfG-5w-lf2">
+                                        <rect key="frame" x="189.5" y="8" width="35.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="kfG-5w-lf2" firstAttribute="centerY" secondItem="Wcp-ot-MRp" secondAttribute="centerY" id="7fW-DK-7qq"/>
+                                    <constraint firstItem="kfG-5w-lf2" firstAttribute="centerX" secondItem="Niq-ZT-H2Y" secondAttribute="centerX" id="82r-5P-6RZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Wcp-ot-MRp" secondAttribute="bottom" id="NWT-0v-fMs"/>
+                                    <constraint firstItem="Wcp-ot-MRp" firstAttribute="leading" secondItem="Niq-ZT-H2Y" secondAttribute="leading" constant="10" id="PVV-BH-dT0"/>
+                                    <constraint firstItem="Wcp-ot-MRp" firstAttribute="top" secondItem="Niq-ZT-H2Y" secondAttribute="top" id="g39-Nn-MRB"/>
+                                </constraints>
+                            </view>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMe-Kb-8pX">
+                                <rect key="frame" x="0.0" y="84" width="414" height="778"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="sbx-iP-Po6" firstAttribute="top" secondItem="Niq-ZT-H2Y" secondAttribute="top" id="7tP-xJ-C1b"/>
+                            <constraint firstItem="sbx-iP-Po6" firstAttribute="bottom" secondItem="fMe-Kb-8pX" secondAttribute="bottom" id="EdK-yG-D8Z"/>
+                            <constraint firstItem="sbx-iP-Po6" firstAttribute="trailing" secondItem="Niq-ZT-H2Y" secondAttribute="trailing" id="HER-R0-PgE"/>
+                            <constraint firstItem="Niq-ZT-H2Y" firstAttribute="leading" secondItem="sbx-iP-Po6" secondAttribute="leading" id="khv-2m-EgI"/>
+                            <constraint firstItem="fMe-Kb-8pX" firstAttribute="top" secondItem="Niq-ZT-H2Y" secondAttribute="bottom" id="oLo-Ia-3x3"/>
+                            <constraint firstItem="fMe-Kb-8pX" firstAttribute="leading" secondItem="sbx-iP-Po6" secondAttribute="leading" id="pHI-il-175"/>
+                            <constraint firstItem="sbx-iP-Po6" firstAttribute="trailing" secondItem="fMe-Kb-8pX" secondAttribute="trailing" id="wRd-Cg-4tn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sbx-iP-Po6"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="Wcp-ot-MRp" id="lKJ-sE-Blj"/>
+                        <outlet property="webView" destination="fMe-Kb-8pX" id="OLn-Y9-b4m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uur-PO-vYg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="865" y="100"/>
         </scene>
     </scenes>
 </document>

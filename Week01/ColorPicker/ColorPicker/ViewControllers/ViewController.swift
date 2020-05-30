@@ -31,7 +31,6 @@ final class ViewController: UIViewController {
     
     private func setupView() {
         colorLabel.text = ""
-        
     }
     
     private func setupDefaultColoring() {
@@ -47,7 +46,6 @@ final class ViewController: UIViewController {
     }
     
     private func setupColoringForWhiteBackground() {
-        view.backgroundColor = .white
         redLabel.textColor = .black
         greenLabel.textColor = .black
         blueLabel.textColor = .black
@@ -94,13 +92,13 @@ final class ViewController: UIViewController {
     private func handleSaveAction() {
         if textField.text.hasValue {
             self.colorLabel.text = textField.text
-            view.backgroundColor = UIColor(red: sliderValues[0],
-                                           green: sliderValues[1],
-                                           blue: sliderValues[2],
+            view.backgroundColor = UIColor(red: sliderValues[0].toColorValue,
+                                           green: sliderValues[1].toColorValue,
+                                           blue: sliderValues[2].toColorValue,
                                            alpha: 1)
             if sliderValues == [0, 0, 0] {
                 setupDefaultColoring()
-            } else if sliderValues == [255, 255, 255] {
+            } else {
                 setupColoringForWhiteBackground()
             }
         }
@@ -118,10 +116,15 @@ final class ViewController: UIViewController {
 // MARK: - Actions
 extension ViewController {
     
+    @IBAction func onInfoButtonTap(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let infoVC = storyboard.instantiateViewController(withIdentifier: "InfoViewController") as! InfoViewController
+        self.present(infoVC, animated: true, completion: nil)
+    }
+    
     @IBAction func onResetTap(_ sender: UIButton) {
         sliderValues = [0, 0, 0]
         colorLabel.text = ""
-        colorLabel.textColor = .white
         sliderValueLabels.forEach { (label) in
             label.textColor = .white
             label.text = "0"
@@ -129,7 +132,7 @@ extension ViewController {
         sliders.forEach { (slider) in
             slider.value = 0
         }
-        view.backgroundColor = .black
+        setupDefaultColoring()
     }
     
     @IBAction func onSetColorTap(_ sender: UIButton) {
