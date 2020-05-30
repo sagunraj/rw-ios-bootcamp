@@ -13,6 +13,10 @@ final class ViewController: UIViewController {
     @IBOutlet weak private var colorLabel: UILabel!
     @IBOutlet var sliders: [UISlider]!
     @IBOutlet var sliderValueLabels: [UILabel]!
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var redLabel: UILabel!
+    @IBOutlet weak var greenLabel: UILabel!
+    @IBOutlet weak var blueLabel: UILabel!
     
     /// This variable contains an array of three items. The first one holds the value of first slider,
     ///  the second holds that of the second and the third holds that of the third.
@@ -22,10 +26,36 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupDefaultColoring()
     }
     
     private func setupView() {
         colorLabel.text = ""
+        
+    }
+    
+    private func setupDefaultColoring() {
+        view.backgroundColor = .black
+        redLabel.textColor = .white
+        greenLabel.textColor = .white
+        blueLabel.textColor = .white
+        sliderValueLabels.forEach { (label) in
+            label.textColor = .white
+        }
+        navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        colorLabel.textColor = .white
+    }
+    
+    private func setupColoringForWhiteBackground() {
+        view.backgroundColor = .white
+        redLabel.textColor = .black
+        greenLabel.textColor = .black
+        blueLabel.textColor = .black
+        sliderValueLabels.forEach { (label) in
+            label.textColor = .black
+        }
+        navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        colorLabel.textColor = .black
     }
     
     func showAlertWithTextField() {
@@ -68,6 +98,11 @@ final class ViewController: UIViewController {
                                            green: sliderValues[1],
                                            blue: sliderValues[2],
                                            alpha: 1)
+            if sliderValues == [0, 0, 0] {
+                setupDefaultColoring()
+            } else if sliderValues == [255, 255, 255] {
+                setupColoringForWhiteBackground()
+            }
         }
     }
     
@@ -84,6 +119,17 @@ final class ViewController: UIViewController {
 extension ViewController {
     
     @IBAction func onResetTap(_ sender: UIButton) {
+        sliderValues = [0, 0, 0]
+        colorLabel.text = ""
+        colorLabel.textColor = .white
+        sliderValueLabels.forEach { (label) in
+            label.textColor = .white
+            label.text = "0"
+        }
+        sliders.forEach { (slider) in
+            slider.value = 0
+        }
+        view.backgroundColor = .black
     }
     
     @IBAction func onSetColorTap(_ sender: UIButton) {

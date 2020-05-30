@@ -17,6 +17,7 @@
                         <subviews>
                             <navigationBar contentMode="scaleToFill" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hvK-dT-dLK">
                                 <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <navigationItem title="Color Picker" id="keU-gR-XdB"/>
                                 </items>
@@ -175,7 +176,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="blueLabel" destination="ik2-BM-OLF" id="v0Z-av-NTo"/>
                         <outlet property="colorLabel" destination="dua-ZT-re5" id="Nvt-bV-hNM"/>
+                        <outlet property="greenLabel" destination="IX9-MP-y83" id="XpZ-37-fSq"/>
+                        <outlet property="navigationBar" destination="hvK-dT-dLK" id="j0Z-0o-6iq"/>
+                        <outlet property="redLabel" destination="lw0-vd-dKa" id="lvL-KE-M9S"/>
                         <outletCollection property="sliders" destination="KzC-Hi-Iwy" collectionClass="NSMutableArray" id="XWs-Ty-x0M"/>
                         <outletCollection property="sliders" destination="5at-W5-SD1" collectionClass="NSMutableArray" id="ZaL-3h-cMb"/>
                         <outletCollection property="sliders" destination="Xrg-Jc-okW" collectionClass="NSMutableArray" id="Pa9-Rq-7At"/>
