@@ -14,9 +14,19 @@ final class InfoViewController: UIViewController {
     @IBOutlet weak private var webView: WKWebView!
     @IBOutlet weak private var closeButton: UIButton!
     
+    var isColorModeRGB: Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupWebView()
+    }
+    
+    private func setupWebView() {
+        let urlString = isColorModeRGB ? "https://en.wikipedia.org/wiki/RGB_color_model"
+            : "https://en.wikipedia.org/wiki/HSL_and_HSV"
+        guard let url = URL(string: urlString) else { return }
+        webView.load(URLRequest(url: url))
     }
     
     private func setupView() {
@@ -24,8 +34,6 @@ final class InfoViewController: UIViewController {
         closeButton.setImage(#imageLiteral(resourceName: "close.pdf"), for: .normal)
         closeButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         closeButton.tintColor = .black
-        guard let url = URL(string: "https://en.wikipedia.org/wiki/RGB_color_model") else { return }
-        webView.load(URLRequest(url: url))
     }
 
 }

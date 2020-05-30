@@ -14,8 +14,16 @@ extension CGFloat {
         return Int(self)
     }
     
-    var toColorValue: CGFloat {
+    var toRGBValue: CGFloat {
         return self / 255.0
+    }
+    
+    var toHueValue: CGFloat {
+        return self / 360
+    }
+    
+    var toSaturationBrightnessValue: CGFloat {
+        return self / 100
     }
     
 }

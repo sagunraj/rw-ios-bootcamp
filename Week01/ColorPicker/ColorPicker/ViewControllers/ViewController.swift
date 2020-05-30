@@ -14,9 +14,10 @@ final class ViewController: UIViewController {
     @IBOutlet var sliders: [UISlider]!
     @IBOutlet var sliderValueLabels: [UILabel]!
     @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var redLabel: UILabel!
-    @IBOutlet weak var greenLabel: UILabel!
-    @IBOutlet weak var blueLabel: UILabel!
+    @IBOutlet weak var firstSliderLabel: UILabel!
+    @IBOutlet weak var secondSliderLabel: UILabel!
+    @IBOutlet weak var thirdSliderLabel: UILabel!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     /// This variable contains an array of three items. The first one holds the value of first slider,
     ///  the second holds that of the second and the third holds that of the third.
@@ -25,19 +26,45 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        setupRGBView()
         setupDefaultColoring()
     }
     
-    private func setupView() {
+    private func setupRGBView() {
         colorLabel.text = ""
+        firstSliderLabel.text = "Red"
+        secondSliderLabel.text = "Green"
+        thirdSliderLabel.text = "Blue"
+        sliders.forEach { (slider) in
+            slider.minimumValue = 0
+            slider.maximumValue = 255
+            slider.value = 0
+        }
+        sliderValueLabels.forEach { (label) in
+            label.text = "0"
+        }
+    }
+    
+    private func setupHSBView() {
+        colorLabel.text = ""
+        firstSliderLabel.text = "Hue"
+        secondSliderLabel.text = "Saturation"
+        thirdSliderLabel.text = "Brightness"
+        sliders.enumerated().forEach { (index, slider) in
+            slider.maximumValue = index == 0 ? 360 : 100
+            slider.minimumValue = 0
+            slider.value = 0
+        }
+        sliderValueLabels.forEach { (label) in
+            label.text = "0"
+        }
     }
     
     private func setupDefaultColoring() {
         view.backgroundColor = .black
-        redLabel.textColor = .white
-        greenLabel.textColor = .white
-        blueLabel.textColor = .white
+        firstSliderLabel.textColor = .white
+        secondSliderLabel.textColor = .white
+        thirdSliderLabel.textColor = .white
         sliderValueLabels.forEach { (label) in
             label.textColor = .white
         }
@@ -46,9 +73,9 @@ final class ViewController: UIViewController {
     }
     
     private func setupColoringForWhiteBackground() {
-        redLabel.textColor = .black
-        greenLabel.textColor = .black
-        blueLabel.textColor = .black
+        firstSliderLabel.textColor = .black
+        secondSliderLabel.textColor = .black
+        thirdSliderLabel.textColor = .black
         sliderValueLabels.forEach { (label) in
             label.textColor = .black
         }
@@ -57,7 +84,7 @@ final class ViewController: UIViewController {
     }
     
     func showAlertWithTextField() {
-        let alertController = UIAlertController(title: "ColorPicker", message: "Enter the color name",
+        let alertController = UIAlertController(title: "Color Picker", message: "Enter the color name",
                                                 preferredStyle: .alert)
         
         alertController.addTextField { (textField : UITextField!) -> Void in
@@ -92,14 +119,22 @@ final class ViewController: UIViewController {
     private func handleSaveAction() {
         if textField.text.hasValue {
             self.colorLabel.text = textField.text
-            view.backgroundColor = UIColor(red: sliderValues[0].toColorValue,
-                                           green: sliderValues[1].toColorValue,
-                                           blue: sliderValues[2].toColorValue,
-                                           alpha: 1)
-            if sliderValues == [0, 0, 0] {
-                setupDefaultColoring()
+            if segmentedControl.selectedSegmentIndex == 0 {
+                view.backgroundColor = UIColor(red: sliderValues[0].toRGBValue,
+                                                          green: sliderValues[1].toRGBValue,
+                                                          blue: sliderValues[2].toRGBValue,
+                                                          alpha: 1)
             } else {
-                setupColoringForWhiteBackground()
+                view.backgroundColor = UIColor(hue: sliderValues[0].toHueValue,
+                                               saturation: sliderValues[1].toSaturationBrightnessValue,
+                                               brightness: sliderValues[2].toSaturationBrightnessValue,
+                                               alpha: 1)
+            }
+           
+            if segmentedControl.selectedSegmentIndex == 0 {
+                sliderValues == [0, 0, 0] ? setupDefaultColoring() : setupColoringForWhiteBackground()
+            } else {
+                sliderValues[2] <= 50 ? setupDefaultColoring() : setupColoringForWhiteBackground()
             }
         }
     }
@@ -116,9 +151,15 @@ final class ViewController: UIViewController {
 // MARK: - Actions
 extension ViewController {
     
+    @IBAction func onSCModeChange(_ sender: UISegmentedControl) {
+        setupDefaultColoring()
+        sender.selectedSegmentIndex == 0 ? setupRGBView() : setupHSBView()
+    }
+    
     @IBAction func onInfoButtonTap(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let infoVC = storyboard.instantiateViewController(withIdentifier: "InfoViewController") as! InfoViewController
+        infoVC.isColorModeRGB = segmentedControl.selectedSegmentIndex == 0
         self.present(infoVC, animated: true, completion: nil)
     }
     
