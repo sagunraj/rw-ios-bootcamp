@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="landscape" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.13"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -94,7 +93,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="w5X-ic-nVh" userLabel="Counters">
-                                        <rect key="frame" x="350.5" y="4.5" width="116.5" height="41"/>
+                                        <rect key="frame" x="172" y="4.5" width="116.5" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round: 999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbB-v7-EVE">
                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="20.5"/>
@@ -110,6 +109,32 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7x-cv-zSU">
+                                        <rect key="frame" x="395" y="0.0" width="250" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hint" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVC-Wh-gNT">
+                                                <rect key="frame" x="0.0" y="0.0" width="191" height="50"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0a7-2S-LzG">
+                                                <rect key="frame" x="201" y="9.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="onSwitchChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="T9k-Tf-uc8"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="0a7-2S-LzG" firstAttribute="leading" secondItem="nVC-Wh-gNT" secondAttribute="trailing" constant="10" id="6dh-O4-5Ap"/>
+                                            <constraint firstItem="nVC-Wh-gNT" firstAttribute="top" secondItem="U7x-cv-zSU" secondAttribute="top" id="7ng-FK-IA5"/>
+                                            <constraint firstItem="nVC-Wh-gNT" firstAttribute="leading" secondItem="U7x-cv-zSU" secondAttribute="leading" id="IXt-Cc-tpx"/>
+                                            <constraint firstItem="0a7-2S-LzG" firstAttribute="centerY" secondItem="nVC-Wh-gNT" secondAttribute="centerY" id="X7T-KV-k9L"/>
+                                            <constraint firstAttribute="trailing" secondItem="0a7-2S-LzG" secondAttribute="trailing" id="fyc-6I-Vld"/>
+                                            <constraint firstAttribute="bottom" secondItem="nVC-Wh-gNT" secondAttribute="bottom" id="qoY-DM-RD8"/>
+                                        </constraints>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KHg-NJ-UEf" userLabel="AboutThisApp">
                                         <rect key="frame" x="751" y="13" width="25" height="24"/>
                                         <connections>
@@ -251,6 +276,7 @@
                         <outlet property="greenLabel" destination="OCg-Pi-P6T" id="k4n-rn-ee0"/>
                         <outlet property="greenSlider" destination="yut-N1-HHC" id="BZO-Kr-tbW"/>
                         <outlet property="guessLabel" destination="Sp6-5Y-Wgh" id="RB9-1d-mEb"/>
+                        <outlet property="hintSwitch" destination="0a7-2S-LzG" id="Kdx-DK-hug"/>
                         <outlet property="redLabel" destination="mJg-Mk-UXc" id="pYD-fi-f7t"/>
                         <outlet property="redSlider" destination="Bq9-r3-aMR" id="Wfb-mm-id4"/>
                         <outlet property="roundLabel" destination="tbB-v7-EVE" id="z3j-v5-4Ec"/>

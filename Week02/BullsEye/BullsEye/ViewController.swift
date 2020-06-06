@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
-    @IBOutlet weak var slider: UISlider!
-    @IBOutlet weak var targetLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var roundLabel: UILabel!
+    @IBOutlet weak private var slider: UISlider!
+    @IBOutlet weak private var targetLabel: UILabel!
+    @IBOutlet weak private var scoreLabel: UILabel!
+    @IBOutlet weak private var roundLabel: UILabel!
     
-    let bullsEyeGame = BullsEyeGame()
+    private let bullsEyeGame = BullsEyeGame()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +48,7 @@ extension ViewController {
     
     @IBAction func sliderMoved(_ slider: UISlider) {
         let roundedValue = slider.value.rounded()
+        print(roundedValue)
         bullsEyeGame.setCurrentValue(with: Int(roundedValue))
     }
     

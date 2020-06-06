@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BullsEyeGame {
+final class BullsEyeGame {
     
     private var currentValue = 0
     private var targetValue = 0
@@ -33,6 +33,7 @@ class BullsEyeGame {
         } else {
             title = "Not even close..."
         }
+        
         score += points
         return (points: points, title: title)
     }

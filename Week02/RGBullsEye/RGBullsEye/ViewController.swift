@@ -22,30 +22,32 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    @IBOutlet weak var targetLabel: UILabel!
-    @IBOutlet weak var targetTextLabel: UILabel!
-    @IBOutlet weak var guessLabel: UILabel!
+final class ViewController: UIViewController {
+    @IBOutlet weak private var targetLabel: UILabel!
+    @IBOutlet weak private var targetTextLabel: UILabel!
+    @IBOutlet weak private var guessLabel: UILabel!
     
-    @IBOutlet weak var redLabel: UILabel!
-    @IBOutlet weak var greenLabel: UILabel!
-    @IBOutlet weak var blueLabel: UILabel!
+    @IBOutlet weak private var redLabel: UILabel!
+    @IBOutlet weak private var greenLabel: UILabel!
+    @IBOutlet weak private var blueLabel: UILabel!
     
-    @IBOutlet weak var redSlider: UISlider!
-    @IBOutlet weak var greenSlider: UISlider!
-    @IBOutlet weak var blueSlider: UISlider!
+    @IBOutlet weak private var redSlider: UISlider!
+    @IBOutlet weak private var greenSlider: UISlider!
+    @IBOutlet weak private var blueSlider: UISlider!
     
-    @IBOutlet weak var roundLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak private var roundLabel: UILabel!
+    @IBOutlet weak private var scoreLabel: UILabel!
     
-    let game = BullsEyeGame()
+    @IBOutlet weak private var hintSwitch: UISwitch!
     
-    var quickDiff: [String: Int] {
+    private let game = BullsEyeGame()
+    
+    private var quickDiff: [String: Int] {
         return ["red": abs(game.getTargetValue().r - game.getCurrentValue().r),
                 "green": abs(game.getTargetValue().g - game.getCurrentValue().g),
                 "blue": abs(game.getTargetValue().b - game.getCurrentValue().b)]
     }
-
+    
     
     private func setupGuessView() {
         let roundedValue = game.getCurrentValue()
@@ -55,33 +57,16 @@ class ViewController: UIViewController {
         blueLabel.text = "B \(roundedValue.b)"
     }
     
-    @IBAction func aSliderMoved(sender: UISlider) {
-        let roundedValue = RGB(r: Int(redSlider.value.rounded()),
-                               g: Int(greenSlider.value.rounded()),
-                               b: Int(blueSlider.value.rounded()))
-        game.setCurrentValue(with: roundedValue)
-        setupGuessView()
-        setupMinimumTrackTintColor()
-    }
-    
     private func setupMinimumTrackTintColor() {
-        redSlider.minimumTrackTintColor = UIColor.blue.withAlphaComponent(CGFloat(quickDiff["red"]!)/100.0)
-        greenSlider.minimumTrackTintColor = UIColor.blue.withAlphaComponent(CGFloat(quickDiff["green"]!)/100.0)
-        blueSlider.minimumTrackTintColor = UIColor.blue.withAlphaComponent(CGFloat(quickDiff["blue"]!)/100.0)
-    }
-    
-    @IBAction func showAlert(sender: AnyObject) {
-        let (points, title) = game.getCalculatedPointsAndTitle()
-        
-        let message = "You scored \(points) points"
-        
-        showOkAlert(withTitle: title, andMessage: message) {
-            self.startNewRound()
+        if hintSwitch.isOn {
+            redSlider.minimumTrackTintColor = UIColor.blue.withAlphaComponent(CGFloat(quickDiff["red"]!)/100.0)
+            greenSlider.minimumTrackTintColor = UIColor.blue.withAlphaComponent(CGFloat(quickDiff["green"]!)/100.0)
+            blueSlider.minimumTrackTintColor = UIColor.blue.withAlphaComponent(CGFloat(quickDiff["blue"]!)/100.0)
+        } else {
+            redSlider.minimumTrackTintColor = .red
+            greenSlider.minimumTrackTintColor = .green
+            blueSlider.minimumTrackTintColor = .blue
         }
-    }
-    
-    @IBAction func startOver(sender: AnyObject) {
-        startGameOver()
     }
     
     private func startGameOver() {
@@ -112,5 +97,37 @@ class ViewController: UIViewController {
         startGameOver()
         setupMinimumTrackTintColor()
     }
+    
 }
 
+// MARK: - Actions
+extension ViewController {
+    
+    @IBAction func onSwitchChange(_ sender: UISwitch) {
+        setupMinimumTrackTintColor()
+    }
+    
+    @IBAction func showAlert(sender: AnyObject) {
+        let (points, title) = game.getCalculatedPointsAndTitle()
+        
+        let message = "You scored \(points) points"
+        
+        showOkAlert(withTitle: title, andMessage: message) {
+            self.startNewRound()
+        }
+    }
+    
+    @IBAction func startOver(sender: AnyObject) {
+        startGameOver()
+    }
+    
+    @IBAction func aSliderMoved(sender: UISlider) {
+        let roundedValue = RGB(r: Int(redSlider.value.rounded()),
+                               g: Int(greenSlider.value.rounded()),
+                               b: Int(blueSlider.value.rounded()))
+        game.setCurrentValue(with: roundedValue)
+        setupGuessView()
+        setupMinimumTrackTintColor()
+    }
+    
+}

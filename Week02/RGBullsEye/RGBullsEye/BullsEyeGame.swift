@@ -22,7 +22,7 @@
 
 import Foundation
 
-class BullsEyeGame {
+final class BullsEyeGame {
     
     private var currentValue = RGB()
     private var targetValue = RGB()
@@ -46,8 +46,8 @@ class BullsEyeGame {
         } else {
             title = "Not even close..."
         }
+        
         score += points
-
         return (points: points, title: title)
     }
     
