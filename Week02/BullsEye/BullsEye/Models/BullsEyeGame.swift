@@ -18,9 +18,7 @@ class BullsEyeGame {
     func getCalculatedPointsAndTitle() -> (points: Int, title: String) {
         let difference = abs(targetValue - currentValue)
         var points = 100 - difference
-        
-        score += points
-        
+                
         let title: String
         if difference == 0 {
             title = "Perfect!"
@@ -35,6 +33,7 @@ class BullsEyeGame {
         } else {
             title = "Not even close..."
         }
+        score += points
         return (points: points, title: title)
     }
     
