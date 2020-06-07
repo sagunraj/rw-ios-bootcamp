@@ -56,6 +56,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33E48F80248CF36000462C78 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				33B94C07248B858B009FB874 /* UIViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		33E48F81248CF37500462C78 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CDCB57E61BED8F4800003224 /* ViewController.swift */,
+				CDCB57FA1BED986300003224 /* AboutViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		33E48F82248CF38900462C78 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CDCB57F61BED941D00003224 /* BullsEyeGame.swift */,
+				CDCB57F71BED941D00003224 /* RGB.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CDCB57D81BED8F4800003224 = {
 			isa = PBXGroup;
 			children = (
@@ -76,15 +102,13 @@
 			isa = PBXGroup;
 			children = (
 				CDCB57E41BED8F4800003224 /* AppDelegate.swift */,
-				CDCB57E61BED8F4800003224 /* ViewController.swift */,
-				CDCB57F61BED941D00003224 /* BullsEyeGame.swift */,
-				CDCB57F71BED941D00003224 /* RGB.swift */,
-				CDCB57FA1BED986300003224 /* AboutViewController.swift */,
+				33E48F81248CF37500462C78 /* View Controllers */,
+				33E48F82248CF38900462C78 /* Models */,
 				CDCB57E81BED8F4800003224 /* Main.storyboard */,
 				181A114E22AD925B003EA9CF /* LaunchScreen.storyboard */,
 				CDCB57EB1BED8F4800003224 /* Assets.xcassets */,
 				CDCB57F01BED8F4800003224 /* Info.plist */,
-				33B94C07248B858B009FB874 /* UIViewController.swift */,
+				33E48F80248CF36000462C78 /* Extensions */,
 			);
 			path = RGBullsEye;
 			sourceTree = "<group>";
