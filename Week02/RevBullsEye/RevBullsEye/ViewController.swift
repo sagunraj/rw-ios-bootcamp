@@ -91,7 +91,14 @@ extension ViewController {
     }
     
     @IBAction func onResetTap(_ sender: UIButton) {
+        setupSwitchAndButton()
         startNewGame()
+    }
+    
+    private func setupSwitchAndButton() {
+        hintSwitch.setOn(false, animated: true)
+        hitMeButton.isEnabled = false
+        setupMinimumTrackTintColor()
     }
     
     @IBAction func onHitMeTap(_ sender: UIButton) {
@@ -100,9 +107,7 @@ extension ViewController {
         let message = "You scored \(points) points"
         showOkAlert(withTitle: title, andMessage: message) { [weak self] in
             guard let self = self else { return }
-            self.hintSwitch.setOn(false, animated: true)
-            self.hitMeButton.isEnabled = false
-            self.setupMinimumTrackTintColor()
+            self.setupSwitchAndButton()
             self.startNewRound()
         }
     }

@@ -48,7 +48,6 @@ extension ViewController {
     
     @IBAction func sliderMoved(_ slider: UISlider) {
         let roundedValue = slider.value.rounded()
-        print(roundedValue)
         bullsEyeGame.setCurrentValue(with: Int(roundedValue))
     }
     
@@ -57,7 +56,8 @@ extension ViewController {
         
         let message = "You scored \(points) points"
         
-        showOkAlert(withTitle: title, andMessage: message) {
+        showOkAlert(withTitle: title, andMessage: message) { [weak self] in
+            guard let self = self else { return }
             self.startNewRound()
         }
     }

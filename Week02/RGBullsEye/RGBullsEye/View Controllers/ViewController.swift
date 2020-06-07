@@ -112,7 +112,8 @@ extension ViewController {
         
         let message = "You scored \(points) points"
         
-        showOkAlert(withTitle: title, andMessage: message) {
+        showOkAlert(withTitle: title, andMessage: message) { [weak self] in
+            guard let self = self else { return }
             self.startNewRound()
         }
     }
