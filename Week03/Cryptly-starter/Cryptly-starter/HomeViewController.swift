@@ -32,70 +32,50 @@
 
 import UIKit
 
-class HomeViewController: UIViewController{
+class HomeViewController: UIViewController {
   
-  @IBOutlet weak var view1: UIView!
-  @IBOutlet weak var view2: UIView!
-  @IBOutlet weak var view3: UIView!
+  @IBOutlet weak var view1: CryptoListView!
+  @IBOutlet weak var view2: CryptoListView!
+  @IBOutlet weak var view3: CryptoListView!
   @IBOutlet weak var headingLabel: UILabel!
   @IBOutlet weak var view1TextLabel: UILabel!
   @IBOutlet weak var view2TextLabel: UILabel!
   @IBOutlet weak var view3TextLabel: UILabel!
   @IBOutlet weak var themeSwitch: UISwitch!
+  @IBOutlet weak var mostFallingTextLabel: UILabel!
+  @IBOutlet weak var mostRisingTextLabel: UILabel!
+  @IBOutlet weak var mostRisingView: CryptoListView!
+  @IBOutlet weak var mostFallingView: CryptoListView!
+  @IBOutlet weak var mostRisingTitleLabel: UILabel!
+  @IBOutlet weak var mostFallingTitleLabel: UILabel!
   
   let cryptoData = DataGenerator.shared.generateData() ?? []
   let themeManager = ThemeManager.shared
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupViews()
     setupLabels()
     setView1Data()
     setView2Data()
     setView3Data()
+    setMostFallingAndMostRisingData()
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    registerForTheme()
     super.viewWillAppear(animated)
+    registerForTheme()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
-    unregisterForTheme()
     super.viewWillDisappear(animated)
-  }
-  
-  func setupViews() {
-    
-    view1.backgroundColor = .systemGray6
-    view1.layer.borderColor = UIColor.lightGray.cgColor
-    view1.layer.borderWidth = 1.0
-    view1.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-    view1.layer.shadowOffset = CGSize(width: 0, height: 2)
-    view1.layer.shadowRadius = 4
-    view1.layer.shadowOpacity = 0.8
-    
-    view2.backgroundColor = .systemGray6
-    view2.layer.borderColor = UIColor.lightGray.cgColor
-    view2.layer.borderWidth = 1.0
-    view2.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-    view2.layer.shadowOffset = CGSize(width: 0, height: 2)
-    view2.layer.shadowRadius = 4
-    view2.layer.shadowOpacity = 0.8
-    
-    view3.backgroundColor = .systemGray6
-    view3.layer.borderColor = UIColor.lightGray.cgColor
-    view3.layer.borderWidth = 1.0
-    view3.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-    view3.layer.shadowOffset = CGSize(width: 0, height: 2)
-    view3.layer.shadowRadius = 4
-    view3.layer.shadowOpacity = 0.8
+    unregisterForTheme()
   }
   
   func setupLabels() {
     headingLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
     view1TextLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
     view2TextLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+    
     view1TextLabel.numberOfLines = 0
     view2TextLabel.numberOfLines = 0
     view3TextLabel.numberOfLines = 0
@@ -116,6 +96,25 @@ class HomeViewController: UIViewController{
     let currencyNamesWithDecreasedValue = cryptoData.filter {
       $0.currentValue < $0.previousValue }.map(\.name)
     view3TextLabel.text = currencyNamesWithDecreasedValue.joined(separator: ", ")
+  }
+  
+  func setMostFallingAndMostRisingData() {
+    let differenceValues = cryptoData.map { $0.currentValue - $0.previousValue }
+    mostRisingTextLabel.text = "\(differenceValues.max() ?? 0)"
+    mostFallingTextLabel.text = "\(differenceValues.min() ?? 0)"
+  }
+  
+}
+
+// MARK: - Actions
+extension HomeViewController {
+  
+  @IBAction func onStepperTap(_ sender: UIStepper) {
+    view1.cornerRadius = CGFloat(sender.value)
+    view2.cornerRadius = CGFloat(sender.value)
+    view3.cornerRadius = CGFloat(sender.value)
+    mostFallingView.cornerRadius = CGFloat(sender.value)
+    mostRisingView.cornerRadius = CGFloat(sender.value)
   }
   
   @IBAction func switchPressed(_ sender: Any) {
@@ -139,10 +138,16 @@ extension HomeViewController: Themable {
     view1.backgroundColor = themeManager.currentTheme?.widgetBackgroundColor
     view2.backgroundColor = themeManager.currentTheme?.widgetBackgroundColor
     view3.backgroundColor = themeManager.currentTheme?.widgetBackgroundColor
+    mostRisingView.backgroundColor = themeManager.currentTheme?.widgetBackgroundColor
+    mostFallingView.backgroundColor = themeManager.currentTheme?.widgetBackgroundColor
     
     view1TextLabel.textColor = themeManager.currentTheme?.textColor
     view2TextLabel.textColor = themeManager.currentTheme?.textColor
     view3TextLabel.textColor = themeManager.currentTheme?.textColor
+    mostRisingTextLabel.textColor = themeManager.currentTheme?.textColor
+    mostFallingTextLabel.textColor = themeManager.currentTheme?.textColor
+    mostRisingTitleLabel.textColor = themeManager.currentTheme?.textColor
+    mostFallingTitleLabel.textColor = themeManager.currentTheme?.textColor
     
     headingLabel.textColor = themeManager.currentTheme?.textColor
     
