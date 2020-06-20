@@ -50,8 +50,9 @@ final class ViewController: UIViewController {
                     self.resetSystem(with: self.person2)
                 }
             } else if currentPerson?.id == 2 {
-                var compatibilityResultString = calculateCompatibility()
-                compatibilityResultString = "You two are \(compatibilityResultString) compatible."
+                let compatibilityResult = calculateCompatibility(with: person1,
+                                                                       and: person2)
+                let compatibilityResultString = "You two are \(compatibilityResult)% compatible."
                 showAlertWithOk(with: "Results",
                                 and: compatibilityResultString) {
                                     self.resetSystem(with: self.person1)
@@ -67,7 +68,8 @@ final class ViewController: UIViewController {
         slider.setValue(3, animated: true)
     }
     
-    func calculateCompatibility() -> String {
+    func calculateCompatibility(with person1: Person,
+                                and person2: Person) -> Double {
         // If diff 0.0 is 100% and 5.0 is 0%, calculate match percentage
         var percentagesForAllItems: [Double] = []
         
@@ -81,7 +83,7 @@ final class ViewController: UIViewController {
         let matchPercentage = sumOfAllPercentages/Double(compatibilityItems.count)
         print(matchPercentage, "%")
         let matchString = 100 - (matchPercentage * 100).rounded()
-        return "\(matchString)%"
+        return matchString
     }
     
 }

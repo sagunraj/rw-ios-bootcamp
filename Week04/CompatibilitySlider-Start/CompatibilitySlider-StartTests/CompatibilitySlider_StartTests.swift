@@ -10,25 +10,24 @@ import XCTest
 @testable import CompatibilitySlider_Start
 
 class CompatibilitySlider_StartTests: XCTestCase {
+    
+    var sut: ViewController!
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
+        sut = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as? ViewController
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        sut = nil
+        super.tearDown()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testCalculateCompatibility() {
+        let person1 = Person(id: 1, items: ["Cats": 1.0, "Dogs": 2.0, "Rabbits": 3.0, "Fishes": 4.0, "Ducks": 5.0, "Chickens": 5.0])
+        let person2 = Person(id: 2, items: ["Cats": 1.0, "Dogs": 2.0, "Rabbits": 3.0, "Fishes": 4.0, "Ducks": 5.0, "Chickens": 5.0])
+        let sutResult = sut.calculateCompatibility(with: person1, and: person2)
+        XCTAssertEqual(sutResult, 100.0)
     }
 
 }
