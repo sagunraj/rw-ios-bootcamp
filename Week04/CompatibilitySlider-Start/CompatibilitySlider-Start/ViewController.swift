@@ -33,12 +33,12 @@ final class ViewController: UIViewController {
     }
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        print(sender.value)
+        sender.setValue(round(sender.value), animated: true)
     }
     
     @IBAction func didPressNextItemButton(_ sender: Any) {
         let currentItem = compatibilityItems[currentItemIndex]
-        currentPerson?.items[currentItem] = slider.value.rounded()
+        currentPerson?.items[currentItem] = slider.value
         
         if currentItemIndex != compatibilityItems.count - 1 {
             currentItemIndex += 1
