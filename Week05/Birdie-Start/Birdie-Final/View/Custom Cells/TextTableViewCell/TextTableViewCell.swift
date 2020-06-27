@@ -10,15 +10,15 @@ import UIKit
 
 class TextTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBOutlet weak private var messageLabel: UILabel!
+    @IBOutlet weak private var dateTimeLabel: UILabel!
+    @IBOutlet weak private var usernameLabel: UILabel!
+    @IBOutlet weak private var badgeImageView: UIImageView!
+    
+    func setupCell(with mediaPost: MediaPost) {
+        usernameLabel.text = mediaPost.userName
+        dateTimeLabel.text = mediaPost.timestamp.getDateString(ofFormat: "dd MMM, HH:mm")
+        messageLabel.text = mediaPost.textBody
     }
     
 }

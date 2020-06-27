@@ -58,6 +58,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="badgeImageView" destination="DsX-sn-97q" id="IIs-pH-fz2"/>
+                <outlet property="dateTimeLabel" destination="gwC-KF-JZH" id="KyF-VD-0wZ"/>
+                <outlet property="messageLabel" destination="1Yx-c0-jb3" id="TkM-hi-M5y"/>
+                <outlet property="usernameLabel" destination="vlw-aC-WqM" id="TRK-Xs-XL4"/>
+            </connections>
             <point key="canvasLocation" x="140.57971014492756" y="135.26785714285714"/>
         </tableViewCell>
     </objects>

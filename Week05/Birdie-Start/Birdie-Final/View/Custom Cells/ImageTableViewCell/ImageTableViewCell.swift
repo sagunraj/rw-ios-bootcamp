@@ -9,16 +9,18 @@
 import UIKit
 
 class ImageTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @IBOutlet weak private var messageLabel: UILabel!
+    @IBOutlet weak private var dateTimeLabel: UILabel!
+    @IBOutlet weak private var usernameLabel: UILabel!
+    @IBOutlet weak private var badgeImageView: UIImageView!
+    @IBOutlet weak private var messageImageView: UIImageView!
+    
+    func setupCell(with imagePost: ImagePost) {
+        usernameLabel.text = imagePost.userName
+        dateTimeLabel.text = imagePost.timestamp.getDateString(ofFormat: "dd MMM, HH:mm")
+        messageLabel.text = imagePost.textBody
+        messageImageView.image = imagePost.image
     }
     
 }
