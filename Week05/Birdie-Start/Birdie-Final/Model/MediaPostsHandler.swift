@@ -33,5 +33,9 @@ class MediaPostsHandler: NSObject {
         mediaPosts.append(imagePost)
         mediaPosts = mediaPosts.sorted(by: { $0.timestamp > $1.timestamp })
     }
+    
+    func removePost(at index: Int) {
+        mediaPosts.remove(at: index)
+    }
 
 }

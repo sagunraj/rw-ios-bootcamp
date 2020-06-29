@@ -8,24 +8,27 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var tableview: UITableView!
     
     var alertController: UIAlertController!
-    let mediaPostsHandler = MediaPostsHandler.shared
+    var selectedImage: UIImage!
+    
+    let viewModel: MediaPostsViewModel = MediaPostsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mediaPostsHandler.getPosts()
         setUpTableView()
     }
     
     func setUpTableView() {
         tableview.delegate = self
         tableview.dataSource = self
-        tableview.register(UINib(nibName: "TextTableViewCell", bundle: nil), forCellReuseIdentifier: "textPostCell")
-        tableview.register(UINib(nibName: "ImageTableViewCell", bundle: nil), forCellReuseIdentifier: "imagePostCell")
+        tableview.register(UINib(nibName: "TextTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "textPostCell")
+        tableview.register(UINib(nibName: "ImageTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "imagePostCell")
     }
     
 }
@@ -34,8 +37,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 extension ViewController {
     
     @IBAction func didPressCreateTextPostButton(_ sender: Any) {
-        alertController = UIAlertController(title: "Birdie", message: "Create Text Post",
-                                                preferredStyle: .alert)
+        alertController = UIAlertController(title: "Birdie", message: "Enter post details",
+                                            preferredStyle: .alert)
         
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Username"
@@ -59,11 +62,13 @@ extension ViewController {
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: UIAlertAction.Style.default,
                                          handler: {
-                                            (action : UIAlertAction!) -> Void in })
+                                            (action : UIAlertAction!) -> Void in
+                                            self.selectedImage = nil
+        })
         
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
-            
+        
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -71,14 +76,23 @@ extension ViewController {
         guard let textFields =  alertController.textFields else { return }
         guard let userNameText = textFields[0].text,
             !userNameText.isEmpty else {
+                selectedImage = nil
                 alertController.dismiss(animated: true) {
                     self.showAlertWithOk(and: "Please make sure you enter your username.")
                 }
                 return
         }
-        mediaPostsHandler.addTextPost(textPost: TextPost(textBody: textFields[1].text,
-                                                         userName: userNameText,
-                                                         timestamp: Date()))
+        if let imageForPost = selectedImage {
+            viewModel.mediaPostsHandler.addImagePost(imagePost: ImagePost(textBody: textFields[1].text,
+                                                                userName: userNameText,
+                                                                timestamp: Date(),
+                                                                image: imageForPost))
+            selectedImage = nil
+        } else {
+            viewModel.mediaPostsHandler.addTextPost(textPost: TextPost(textBody: textFields[1].text,
+                                                             userName: userNameText,
+                                                             timestamp: Date()))
+        }
         alertController.dismiss(animated: true) {
             self.tableview.reloadData()
         }
@@ -90,7 +104,24 @@ extension ViewController {
     }
     
     @IBAction func didPressCreateImagePostButton(_ sender: Any) {
-        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+    
+}
+
+// MARK: - UIImagePickerControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate
+extension ViewController: UIImagePickerControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else { return }
+        selectedImage = image
+        dismiss(animated: true) {
+            self.didPressCreateTextPostButton(self)
+        }
     }
     
 }
@@ -99,22 +130,31 @@ extension ViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mediaPostsHandler.mediaPosts.count
+        return viewModel.mediaPostsHandler.mediaPosts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentMediaPostItem = mediaPostsHandler.mediaPosts[indexPath.row]
-
-        if let mediaPostItem = currentMediaPostItem as? ImagePost {
+        let currentMediaPost = viewModel.mediaPostsHandler.mediaPosts[indexPath.row]
+        switch viewModel.getPostType(currentMediaPost) {
+        case .image:
             guard let imagePostCell = tableView.dequeueReusableCell(withIdentifier: "imagePostCell")
                 as? ImageTableViewCell else { fatalError("Unable to dequeue cell.") }
-            imagePostCell.setupCell(with: mediaPostItem)
+            imagePostCell.setupCell(with: currentMediaPost as! ImagePost) // used force unwrapping since we're sure that it's an ImagePost
             return imagePostCell
-        } else {
+        case .text:
             guard let textPostCell = tableView.dequeueReusableCell(withIdentifier: "textPostCell")
                 as? TextTableViewCell else { fatalError("Unable to dequeue cell.") }
-            textPostCell.setupCell(with: currentMediaPostItem)
+            textPostCell.setupCell(with: currentMediaPost)
             return textPostCell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.mediaPostsHandler.removePost(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
     
