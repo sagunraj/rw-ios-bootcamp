@@ -30,12 +30,34 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import UIKit
 
-struct Pokemon: Hashable {
-  let pokemonId: Int
-  let pokemonName: String
-  let baseExperience: Int
-  let weight: Int
-  let height: Int
+final class LargePokemonCVCell: UICollectionViewCell {
+  
+  static let reuseIdentifier = String(describing: LargePokemonCVCell.self)
+  
+  @IBOutlet weak private var wrapperView: UIView!
+  @IBOutlet weak private var largePokemonImageView: UIImageView!
+  @IBOutlet weak private var largePokemonNameLabel: UILabel!
+  @IBOutlet weak private var baseExpLabel: UILabel!
+  @IBOutlet weak private var heightLabel: UILabel!
+  @IBOutlet weak private var weightLabel: UILabel!
+  
+  func populateView(with pokemon: Pokemon) {
+    largePokemonImageView.image = UIImage(named: "\(pokemon.pokemonId)")
+    largePokemonNameLabel.text = pokemon.pokemonName
+    baseExpLabel.text = "\(pokemon.baseExperience)"
+    heightLabel.text = "\(pokemon.height)"
+    weightLabel.text = "\(pokemon.weight)"
+  }
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    setupView()
+  }
+  
+  private func setupView() {
+    wrapperView.layer.cornerRadius = 4
+  }
+  
 }

@@ -15,6 +15,9 @@
 		33C1E93E24AF1CAB006BA1CE /* PokemonCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E93C24AF1CAB006BA1CE /* PokemonCVCell.swift */; };
 		33C1E93F24AF1CAB006BA1CE /* PokemonCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E93D24AF1CAB006BA1CE /* PokemonCVCell.xib */; };
 		33C1E94124AF21C2006BA1CE /* CompactPokemonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E94024AF21C2006BA1CE /* CompactPokemonViewController.swift */; };
+		33C1E94724AF4323006BA1CE /* LargePokemonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E94624AF4323006BA1CE /* LargePokemonViewController.swift */; };
+		33C1E94F24AF43E2006BA1CE /* LargePokemonCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C1E94D24AF43E2006BA1CE /* LargePokemonCVCell.swift */; };
+		33C1E95024AF43E2006BA1CE /* LargePokemonCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33C1E94E24AF43E2006BA1CE /* LargePokemonCVCell.xib */; };
 		A10D04F924ABC8DB00DE5D14 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10D04F824ABC8DB00DE5D14 /* Pokemon.swift */; };
 		A11D349A24AABED7002BDD2B /* Pokemon Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A11D349824AABED7002BDD2B /* Pokemon Solid.ttf */; };
 		A11D349B24AABED7002BDD2B /* Pokemon Hollow.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A11D349924AABED7002BDD2B /* Pokemon Hollow.ttf */; };
@@ -34,6 +37,9 @@
 		33C1E93C24AF1CAB006BA1CE /* PokemonCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCVCell.swift; sourceTree = "<group>"; };
 		33C1E93D24AF1CAB006BA1CE /* PokemonCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PokemonCVCell.xib; sourceTree = "<group>"; };
 		33C1E94024AF21C2006BA1CE /* CompactPokemonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactPokemonViewController.swift; sourceTree = "<group>"; };
+		33C1E94624AF4323006BA1CE /* LargePokemonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePokemonViewController.swift; sourceTree = "<group>"; };
+		33C1E94D24AF43E2006BA1CE /* LargePokemonCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePokemonCVCell.swift; sourceTree = "<group>"; };
+		33C1E94E24AF43E2006BA1CE /* LargePokemonCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargePokemonCVCell.xib; sourceTree = "<group>"; };
 		A10D04F824ABC8DB00DE5D14 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		A11D349824AABED7002BDD2B /* Pokemon Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pokemon Solid.ttf"; sourceTree = "<group>"; };
 		A11D349924AABED7002BDD2B /* Pokemon Hollow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pokemon Hollow.ttf"; sourceTree = "<group>"; };
@@ -90,7 +96,9 @@
 		33C1E93A24AF1C6F006BA1CE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				33C1E94824AF4333006BA1CE /* LargePokemonCVCell */,
 				33C1E94024AF21C2006BA1CE /* CompactPokemonViewController.swift */,
+				33C1E94624AF4323006BA1CE /* LargePokemonViewController.swift */,
 				33C1E93B24AF1C7C006BA1CE /* PokemonCVCell */,
 			);
 			path = Views;
@@ -111,6 +119,15 @@
 				A10D04F824ABC8DB00DE5D14 /* Pokemon.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		33C1E94824AF4333006BA1CE /* LargePokemonCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				33C1E94D24AF43E2006BA1CE /* LargePokemonCVCell.swift */,
+				33C1E94E24AF43E2006BA1CE /* LargePokemonCVCell.xib */,
+			);
+			path = LargePokemonCVCell;
 			sourceTree = "<group>";
 		};
 		A125200724AAAB64008F7E2E /* Resources */ = {
@@ -188,6 +205,7 @@
 				180DC61523C78D9800486B1A /* LaunchScreen.storyboard in Resources */,
 				A11D349B24AABED7002BDD2B /* Pokemon Hollow.ttf in Resources */,
 				185CB20523C78CE8009F7571 /* Assets.xcassets in Resources */,
+				33C1E95024AF43E2006BA1CE /* LargePokemonCVCell.xib in Resources */,
 				A125200A24AAAB71008F7E2E /* pokemon.csv in Resources */,
 				185CB20323C78CE6009F7571 /* Main.storyboard in Resources */,
 				33C1E93F24AF1CAB006BA1CE /* PokemonCVCell.xib in Resources */,
@@ -225,8 +243,10 @@
 				A125200B24AAAB71008F7E2E /* csv.swift in Sources */,
 				33C1E93E24AF1CAB006BA1CE /* PokemonCVCell.swift in Sources */,
 				33C1E94124AF21C2006BA1CE /* CompactPokemonViewController.swift in Sources */,
+				33C1E94724AF4323006BA1CE /* LargePokemonViewController.swift in Sources */,
 				A125200D24AAABA0008F7E2E /* PokemonGenerator.swift in Sources */,
 				185CB1FC23C78CE6009F7571 /* AppDelegate.swift in Sources */,
+				33C1E94F24AF43E2006BA1CE /* LargePokemonCVCell.swift in Sources */,
 				185CB1FE23C78CE6009F7571 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

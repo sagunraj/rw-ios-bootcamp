@@ -36,7 +36,7 @@ final class CompactPokemonViewController: UIViewController {
   
   @IBOutlet weak private var pokemonCollectionView: UICollectionView!
   
-  let pokemons = PokemonGenerator.shared.generatePokemons()
+  private let pokemons = PokemonGenerator.shared.generatePokemons()
   
   override func viewDidLoad() {
     super.viewDidLoad()
