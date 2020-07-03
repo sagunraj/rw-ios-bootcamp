@@ -36,7 +36,7 @@ final class CompactPokemonViewController: UIViewController {
   
   @IBOutlet weak private var pokemonCollectionView: UICollectionView!
   
-  let viewModel = CompactPokemonViewModel()
+  let pokemons = PokemonGenerator.shared.generatePokemons()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -57,14 +57,14 @@ final class CompactPokemonViewController: UIViewController {
 extension CompactPokemonViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return viewModel.pokemons.count
+    return pokemons.count
   }
   
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonCVCell.reuseIdentifier,
                                                         for: indexPath) as? PokemonCVCell else { fatalError("Unable to dequeue cell.") }
-    cell.populateCell(with: viewModel.pokemons[indexPath.row])
+    cell.populateCell(with: pokemons[indexPath.row])
     return cell
   }
   

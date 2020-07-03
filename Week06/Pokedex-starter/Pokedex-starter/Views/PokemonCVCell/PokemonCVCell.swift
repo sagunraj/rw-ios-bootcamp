@@ -51,7 +51,7 @@ final class PokemonCVCell: UICollectionViewCell {
   }
   
   private func setupView() {
-    wrapperView.layer.cornerRadius = 8
+    wrapperView.layer.cornerRadius = 4
   }
   
 }
