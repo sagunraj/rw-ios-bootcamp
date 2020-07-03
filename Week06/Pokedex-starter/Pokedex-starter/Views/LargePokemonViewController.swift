@@ -68,12 +68,12 @@ final class LargePokemonViewController: UIViewController {
   
   func configureDataSource() {
     dataSource = UICollectionViewDiffableDataSource<Section, Pokemon>(collectionView: largePokemonCollectionView,
-                                                                  cellProvider: { (collectionView, indexPath, pokemon) -> UICollectionViewCell? in
-                                                                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargePokemonCVCell.reuseIdentifier, for: indexPath) as? LargePokemonCVCell else {
-                                                                      fatalError("Unable to dequeue cell.")
-                                                                    }
-                                                                    cell.populateView(with: pokemon)
-                                                                    return cell
+                                                                      cellProvider: { (collectionView, indexPath, pokemon) -> UICollectionViewCell? in
+                                                                        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargePokemonCVCell.reuseIdentifier, for: indexPath) as? LargePokemonCVCell else {
+                                                                          fatalError("Unable to dequeue cell.")
+                                                                        }
+                                                                        cell.populateView(with: pokemon)
+                                                                        return cell
     })
     var initialSnapshot = NSDiffableDataSourceSnapshot<Section, Pokemon>()
     initialSnapshot.appendSections([.main])
