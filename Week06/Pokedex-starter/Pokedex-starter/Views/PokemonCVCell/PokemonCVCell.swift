@@ -33,23 +33,25 @@
 import UIKit
 
 final class PokemonCVCell: UICollectionViewCell {
-    
-    @IBOutlet weak private var wrapperView: UIView!
-    @IBOutlet weak private var pokemonImageView: UIImageView!
-    @IBOutlet weak private var pokemonNameLabel: UILabel!
-    
-    func populateCell(with pokemon: Pokemon) {
-      pokemonImageView.image = UIImage(named: "\(pokemon.pokemonId)")
-      pokemonNameLabel.text = pokemon.pokemonName
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupView()
-    }
-    
-    private func setupView() {
-        wrapperView.layer.cornerRadius = 8
-    }
-
+  
+  static let reuseIdentifier = String(describing: PokemonCVCell.self)
+  
+  @IBOutlet weak private var wrapperView: UIView!
+  @IBOutlet weak private var pokemonImageView: UIImageView!
+  @IBOutlet weak private var pokemonNameLabel: UILabel!
+  
+  func populateCell(with pokemon: Pokemon) {
+    pokemonImageView.image = UIImage(named: "\(pokemon.pokemonId)")
+    pokemonNameLabel.text = pokemon.pokemonName
+  }
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    setupView()
+  }
+  
+  private func setupView() {
+    wrapperView.layer.cornerRadius = 8
+  }
+  
 }

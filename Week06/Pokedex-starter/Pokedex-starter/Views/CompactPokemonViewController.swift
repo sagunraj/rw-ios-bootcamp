@@ -46,7 +46,8 @@ final class CompactPokemonViewController: UIViewController {
   private func setupCollectionView() {
     pokemonCollectionView.delegate = self
     pokemonCollectionView.dataSource = self
-    pokemonCollectionView.register(UINib(nibName: "PokemonCVCell", bundle: nil), forCellWithReuseIdentifier: "PokemonCVCell")
+    pokemonCollectionView.register(UINib(nibName: PokemonCVCell.reuseIdentifier, bundle: nil),
+                                   forCellWithReuseIdentifier: PokemonCVCell.reuseIdentifier)
     pokemonCollectionView.contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
   }
   
@@ -61,7 +62,8 @@ extension CompactPokemonViewController: UICollectionViewDataSource, UICollection
   
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokemonCVCell", for: indexPath) as? PokemonCVCell else { fatalError("Unable to dequeue cell.") }
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonCVCell.reuseIdentifier,
+                                                        for: indexPath) as? PokemonCVCell else { fatalError("Unable to dequeue cell.") }
     cell.populateCell(with: viewModel.pokemons[indexPath.row])
     return cell
   }
