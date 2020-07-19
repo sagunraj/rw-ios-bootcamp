@@ -29,15 +29,6 @@ class SandwichViewController: UITableViewController, SandwichDataSource {
     
     private func refresh() {
         let request = Sandwich.fetchRequest() as NSFetchRequest<Sandwich>
-        if !isSearchBarEmpty {
-            let query = searchController.searchBar.text!
-            //            let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [
-            //                NSPredicate(format: "name CONTAINS[cd] %@", query),
-            //                NSPredicate(
-            //            ])
-            let sauceAmountPredicate = searchController.searchBar.selectedScopeButtonIndex == 0
-            let predicate = NSPredicate(format: "(name CONTAINS[cd] %@) AND (sauceAmount = %@", query)
-        }
         let sort = NSSortDescriptor(key: #keyPath(Sandwich.name),
                                     ascending: true,
                                     selector: #selector(NSString.caseInsensitiveCompare(_:)))
