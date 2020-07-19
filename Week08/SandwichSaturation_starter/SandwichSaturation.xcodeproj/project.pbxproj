@@ -19,6 +19,11 @@
 		12A0791424AFDD8E0097F149 /* SandwichData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A0791324AFDD8E0097F149 /* SandwichData.swift */; };
 		12A0791824B2CC9A0097F149 /* sandwiches.json in Resources */ = {isa = PBXBuildFile; fileRef = 12A0791724B2CC9A0097F149 /* sandwiches.json */; };
 		332772B524C439A600C89400 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332772B424C439A600C89400 /* AppConstants.swift */; };
+		332772C924C4666C00C89400 /* SandwichSaturation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 332772C724C4666C00C89400 /* SandwichSaturation.xcdatamodeld */; };
+		332772CF24C4676000C89400 /* Sandwich+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332772CB24C4676000C89400 /* Sandwich+CoreDataClass.swift */; };
+		332772D024C4676000C89400 /* Sandwich+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332772CC24C4676000C89400 /* Sandwich+CoreDataProperties.swift */; };
+		332772D124C4676000C89400 /* SauceAmountModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332772CD24C4676000C89400 /* SauceAmountModel+CoreDataClass.swift */; };
+		332772D524C46E0700C89400 /* SauceAmountModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332772D324C46E0700C89400 /* SauceAmountModel+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +41,11 @@
 		12A0791324AFDD8E0097F149 /* SandwichData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandwichData.swift; sourceTree = "<group>"; };
 		12A0791724B2CC9A0097F149 /* sandwiches.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sandwiches.json; sourceTree = "<group>"; };
 		332772B424C439A600C89400 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		332772C824C4666C00C89400 /* SandwichSaturation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SandwichSaturation.xcdatamodel; sourceTree = "<group>"; };
+		332772CB24C4676000C89400 /* Sandwich+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sandwich+CoreDataClass.swift"; sourceTree = "<group>"; };
+		332772CC24C4676000C89400 /* Sandwich+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sandwich+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		332772CD24C4676000C89400 /* SauceAmountModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SauceAmountModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		332772D324C46E0700C89400 /* SauceAmountModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SauceAmountModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +78,7 @@
 		1255797924AFB8FA004C616F /* SandwichSaturation */ = {
 			isa = PBXGroup;
 			children = (
+				332772CA24C4674900C89400 /* Data */,
 				1255797A24AFB8FA004C616F /* AppDelegate.swift */,
 				1255797C24AFB8FA004C616F /* SceneDelegate.swift */,
 				12A0791224AFDD810097F149 /* Model */,
@@ -75,6 +86,7 @@
 				12A0790F24AFDC2F0097F149 /* ViewControllers */,
 				1255798524AFB8FC004C616F /* Assets.xcassets */,
 				1255799024AFC717004C616F /* SandwichArt.xcassets */,
+				332772C724C4666C00C89400 /* SandwichSaturation.xcdatamodeld */,
 				1255798724AFB8FC004C616F /* LaunchScreen.storyboard */,
 				1255798A24AFB8FC004C616F /* Info.plist */,
 				332772B424C439A600C89400 /* AppConstants.swift */,
@@ -107,6 +119,17 @@
 				12A0791324AFDD8E0097F149 /* SandwichData.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		332772CA24C4674900C89400 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				332772CB24C4676000C89400 /* Sandwich+CoreDataClass.swift */,
+				332772CD24C4676000C89400 /* SauceAmountModel+CoreDataClass.swift */,
+				332772CC24C4676000C89400 /* Sandwich+CoreDataProperties.swift */,
+				332772D324C46E0700C89400 /* SauceAmountModel+CoreDataProperties.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,11 +207,16 @@
 			files = (
 				1255799324AFCBD7004C616F /* SandwichCell.swift in Sources */,
 				12A0791124AFDC5C0097F149 /* AddSandwichViewController.swift in Sources */,
+				332772C924C4666C00C89400 /* SandwichSaturation.xcdatamodeld in Sources */,
 				1255797B24AFB8FA004C616F /* AppDelegate.swift in Sources */,
+				332772D024C4676000C89400 /* Sandwich+CoreDataProperties.swift in Sources */,
 				1255797D24AFB8FA004C616F /* SceneDelegate.swift in Sources */,
 				332772B524C439A600C89400 /* AppConstants.swift in Sources */,
 				1255797F24AFB8FA004C616F /* SandwichViewController.swift in Sources */,
+				332772CF24C4676000C89400 /* Sandwich+CoreDataClass.swift in Sources */,
+				332772D524C46E0700C89400 /* SauceAmountModel+CoreDataProperties.swift in Sources */,
 				12A0791424AFDD8E0097F149 /* SandwichData.swift in Sources */,
+				332772D124C4676000C89400 /* SauceAmountModel+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +414,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		332772C724C4666C00C89400 /* SandwichSaturation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				332772C824C4666C00C89400 /* SandwichSaturation.xcdatamodel */,
+			);
+			currentVersion = 332772C824C4666C00C89400 /* SandwichSaturation.xcdatamodel */;
+			path = SandwichSaturation.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1255796F24AFB8FA004C616F /* Project object */;
 }

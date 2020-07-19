@@ -72,7 +72,7 @@ class AddSandwichViewController: UIViewController {
         fatalError()
     }
     
-    dataSource.saveSandwich(sandwich)
+    dataSource.saveSandwich(sandwich, needsAutoRefresh: true)
   }
 }
 
