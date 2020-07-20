@@ -11,9 +11,8 @@ import Foundation
 struct AppConstants {
     
     struct UserDefaultsConstants {
-        
         static let selectedFilterIndex = "selectedFilterIndex"
-        
+        static let hasLoadedSandwichFromJSON = "hasLoadedSandwichFromJSON"
     }
     
 }

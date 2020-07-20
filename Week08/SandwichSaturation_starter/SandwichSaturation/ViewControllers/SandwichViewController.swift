@@ -23,31 +23,29 @@ class SandwichViewController: UITableViewController, SandwichDataSource {
     var sandwiches = [Sandwich]()
     var filteredSandwiches = [Sandwich]()
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
     private func refresh() {
-        let request = Sandwich.fetchRequest() as NSFetchRequest<Sandwich>
-        let sort = NSSortDescriptor(key: #keyPath(Sandwich.name),
-                                    ascending: true,
-                                    selector: #selector(NSString.caseInsensitiveCompare(_:)))
-        request.sortDescriptors = [sort]
-        fetchedRC = NSFetchedResultsController(fetchRequest: request,
-                                               managedObjectContext: context,
-                                               sectionNameKeyPath: nil,
-                                               cacheName: nil)
-        do {
-            try fetchedRC.performFetch()
-            guard let objects = fetchedRC.fetchedObjects else { return }
-            if objects.isEmpty {
-                loadSandwiches()
-            } else {
+        let hasLoadedSandwichFromJSON = UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsConstants.hasLoadedSandwichFromJSON)
+        if hasLoadedSandwichFromJSON {
+            let request = Sandwich.fetchRequest() as NSFetchRequest<Sandwich>
+            let sort = NSSortDescriptor(key: #keyPath(Sandwich.name),
+                                        ascending: true,
+                                        selector: #selector(NSString.caseInsensitiveCompare(_:)))
+            request.sortDescriptors = [sort]
+            fetchedRC = NSFetchedResultsController(fetchRequest: request,
+                                                   managedObjectContext: context,
+                                                   sectionNameKeyPath: nil,
+                                                   cacheName: nil)
+            do {
+                try fetchedRC.performFetch()
+                guard let objects = fetchedRC.fetchedObjects else { return }
                 sandwiches = objects
+            } catch let error as NSError {
+                print("Could not fetch. \(error.localizedDescription)")
             }
-        } catch let error as NSError {
-            print("Could not fetch. \(error.localizedDescription)")
+        } else {
+            loadSandwiches()
         }
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -55,8 +53,11 @@ class SandwichViewController: UITableViewController, SandwichDataSource {
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentAddView(_:)))
         navigationItem.rightBarButtonItem = addButton
-        
-        // Setup Search Controller
+        navigationItem.leftBarButtonItem = editButtonItem
+        setupSearchController()
+    }
+    
+    private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Filter Sandwiches"
@@ -84,8 +85,9 @@ class SandwichViewController: UITableViewController, SandwichDataSource {
             sandwiches.forEach { (sandwich) in
                 saveSandwich(sandwich, needsAutoRefresh: false)
             }
+            UserDefaults.standard.set(true,
+                                      forKey: AppConstants.UserDefaultsConstants.hasLoadedSandwichFromJSON)
             refresh()
-            tableView.reloadData()
         } catch let error {
             print("Unable to fetch sandwich data \(error.localizedDescription)")
         }
@@ -103,7 +105,6 @@ class SandwichViewController: UITableViewController, SandwichDataSource {
         appDelegate.saveContext()
         if needsAutoRefresh {
             refresh()
-            tableView.reloadData()
         }
     }
     
@@ -187,6 +188,27 @@ class SandwichViewController: UITableViewController, SandwichDataSource {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let sandwich = fetchedRC.object(at: indexPath)
+            context.delete(sandwich)
+            appDelegate.saveContext()
+            refresh()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if tableView.isEditing && !searchController.isActive {
+            return .delete
+        }
+        return .none
+    }
+    
 }
 
 // MARK: - UISearchResultsUpdating
@@ -213,4 +235,3 @@ extension SandwichViewController: UISearchBarDelegate {
     }
     
 }
-
