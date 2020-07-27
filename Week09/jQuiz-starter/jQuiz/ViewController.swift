@@ -10,26 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var logoImageView: UIImageView!
-    @IBOutlet weak var soundButton: UIButton!
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var clueLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak private var logoImageView: UIImageView!
+    @IBOutlet weak private var soundButton: UIButton!
+    @IBOutlet weak private var categoryLabel: UILabel!
+    @IBOutlet weak private var clueLabel: UILabel!
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var scoreLabel: UILabel!
     
-    var clues: [Clue] = []
-    var correctAnswerClue: Clue?
-    var points: Int = 0
+    private let viewModel = ClueViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.delegate = self
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
-        getClues()
+        viewModel.getClues()
         
-        self.scoreLabel.text = "\(self.points)"
+        scoreLabel.text = "\(viewModel.points)"
         
         if SoundManager.shared.isSoundEnabled == false {
             soundButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
@@ -40,40 +41,9 @@ class ViewController: UIViewController {
         SoundManager.shared.playSound()
     }
     
-    private func getClues() {
-        Networking.sharedInstance.getRandomCategory(completion: { (categoryId, message) in
-            guard let id = categoryId else {
-                DispatchQueue.main.async {
-                    self.showOkAlert(withTitle: "Error",
-                                     andMessage: message)
-                }
-                return
-            }
-            Networking.sharedInstance.getAllCluesInCategory(with: id) { (clues, message) in
-                guard let clues = clues else {
-                    DispatchQueue.main.async {
-                        self.showOkAlert(withTitle: "Error",
-                                         andMessage: message)
-                    }
-                    return
-                }
-                self.correctAnswerClue = clues[0]
-                var cluesArray = [self.correctAnswerClue!]
-                let otherClues = clues.filter { (clue) -> Bool in
-                    clue.answer != self.correctAnswerClue?.answer
-                }.prefix(3)
-                cluesArray.append(contentsOf: otherClues)
-                self.clues = cluesArray.shuffled()
-                DispatchQueue.main.async {
-                    self.setUpView()
-                }
-            }
-        })
-    }
-    
     private func setUpView() {
-        self.categoryLabel.text = self.clues[0].category.title
-        self.clueLabel.text = self.clues[0].question
+        self.categoryLabel.text = self.viewModel.clues[0].category.title
+        self.clueLabel.text = self.viewModel.clues[0].question
         self.tableView.reloadData()
     }
     
@@ -88,9 +58,28 @@ class ViewController: UIViewController {
     
 }
 
+// MARK: - ClueViewModelDelegate
+extension ViewController: ClueViewModelDelegate {
+    
+    func didMeetError(with message: String) {
+        DispatchQueue.main.async {
+            self.showOkAlert(withTitle: "Error", andMessage: message)
+        }
+    }
+    
+    func didFetchClues() {
+        DispatchQueue.main.async {
+            self.setUpView()
+        }
+    }
+    
+}
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return clues.count
+        return viewModel.clues.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -102,16 +91,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                                                        for: indexPath) as? ClueTableViewCell else {
             return UITableViewCell()
         }
-        cell.setupClueTitle(with: clues[indexPath.row].answer)
+        cell.setupClueTitle(with: viewModel.clues[indexPath.row].answer)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if clues[indexPath.row].answer == correctAnswerClue?.answer {
-            points += 100
-            scoreLabel.text = "\(points)"
+        if viewModel.clues[indexPath.row].answer == viewModel.correctAnswerClue?.answer {
+            viewModel.points += 100
+            scoreLabel.text = "\(viewModel.points)"
         }
-        getClues()
+        viewModel.getClues()
     }
+    
 }
 
