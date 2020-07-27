@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         tableView.separatorStyle = .none
         
         viewModel.getClues()
+        viewModel.fetchLogoImage()
         
         scoreLabel.text = "\(viewModel.points)"
         
@@ -60,6 +61,12 @@ class ViewController: UIViewController {
 
 // MARK: - ClueViewModelDelegate
 extension ViewController: ClueViewModelDelegate {
+    
+    func didFetchLogo(with image: UIImage) {
+        DispatchQueue.main.async {
+            self.logoImageView.image = image
+        }
+    }
     
     func didMeetError(with message: String) {
         DispatchQueue.main.async {

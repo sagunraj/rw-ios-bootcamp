@@ -6,11 +6,12 @@
 //  Copyright © 2020 Jay Strawn. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ClueViewModelDelegate: class {
     func didMeetError(with message: String)
     func didFetchClues()
+    func didFetchLogo(with image: UIImage)
 }
 
 class ClueViewModel {
@@ -42,6 +43,16 @@ class ClueViewModel {
                 self.delegate?.didFetchClues()
             }
         })
+    }
+    
+    func fetchLogoImage() {
+        Networking.sharedInstance.getLogoImage { (image, message) in
+            guard let image = image else {
+                self.delegate?.didMeetError(with: message)
+                return
+            }
+            self.delegate?.didFetchLogo(with: image)
+        }
     }
     
 }
