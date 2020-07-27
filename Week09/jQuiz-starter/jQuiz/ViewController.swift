@@ -26,8 +26,8 @@ class ViewController: UIViewController {
         
         scoreLabel.text = "\(viewModel.points)"
         
-        checkSoundEnabledStatus()
-        SoundManager.shared.playSound()
+        setupSoundIcon()
+        SoundManager.shared.playOrStopSound()
     }
     
     private func setupViewModel() {
@@ -48,17 +48,17 @@ class ViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    private func checkSoundEnabledStatus() {
-        if SoundManager.shared.isSoundEnabled == false {
-            soundButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
-        } else {
+    private func setupSoundIcon() {
+        if SoundManager.shared.isSoundOn {
             soundButton.setImage(UIImage(systemName: "speaker"), for: .normal)
+        } else {
+            soundButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
         }
     }
     
     @IBAction func didPressVolumeButton(_ sender: Any) {
         SoundManager.shared.toggleSoundPreference()
-        checkSoundEnabledStatus()
+        setupSoundIcon()
     }
     
 }
