@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak private var categoryLabel: UILabel!
     @IBOutlet weak private var clueLabel: UILabel!
     @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var stopButton: UIButton!
     @IBOutlet weak private var scoreLabel: UILabel!
     
     private let viewModel = ClueViewModel()
@@ -26,10 +27,15 @@ class ViewController: UIViewController {
         setupLabels()
         setupSoundIcon()
         SoundManager.shared.playOrStopSound()
+        setupStopButton()
+    }
+    
+    private func setupStopButton() {
+        stopButton.titleLabel?.font = Fonts.Regular.r3
+        stopButton.tintColor = .white
     }
     
     private func setupLabels() {
-        scoreLabel.text = "\(viewModel.points)"
         scoreLabel.font = Fonts.Bold.b1
         categoryLabel.font = Fonts.Medium.m1
         clueLabel.font = Fonts.Medium.m2
@@ -47,7 +53,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    
+
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -55,9 +61,10 @@ class ViewController: UIViewController {
     }
     
     private func setUpView() {
-        self.categoryLabel.text = self.viewModel.clues[0].category.title
-        self.clueLabel.text = self.viewModel.clues[0].question
-        self.tableView.reloadData()
+        scoreLabel.text = "\(viewModel.points)"
+        categoryLabel.text = self.viewModel.clues[0].category.title
+        clueLabel.text = self.viewModel.clues[0].question
+        tableView.reloadData()
     }
     
     private func setupSoundIcon() {
@@ -65,6 +72,18 @@ class ViewController: UIViewController {
             soundButton.setImage(UIImage(systemName: "speaker"), for: .normal)
         } else {
             soundButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
+        }
+    }
+    
+}
+
+// MARK: - Actions
+extension ViewController {
+    
+    @IBAction func onStopTap(_ sender: UIButton) {
+        showOkAlert(withTitle: viewModel.points == 0 ? "Sorry!" : "Congratulations!", andMessage: "Your score is: \(viewModel.points)") {
+            self.viewModel.points = 0
+            self.viewModel.getClues()
         }
     }
     
@@ -78,11 +97,11 @@ class ViewController: UIViewController {
 // MARK: - ClueViewModelDelegate
 extension ViewController: ClueViewModelDelegate {
     
-    func didFetchLogo(with image: UIImage) {
-        DispatchQueue.main.async {
-            self.logoImageView.image = image
-        }
-    }
+//    func didFetchLogo(with image: UIImage) {
+//        DispatchQueue.main.async {
+//            self.logoImageView.image = image
+//        }
+//    }
     
     func didMeetError(with message: String) {
         DispatchQueue.main.async {

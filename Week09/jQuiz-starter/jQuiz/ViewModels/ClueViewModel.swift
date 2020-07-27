@@ -11,7 +11,7 @@ import UIKit
 protocol ClueViewModelDelegate: class {
     func didMeetError(with message: String)
     func didFetchClues()
-    func didFetchLogo(with image: UIImage)
+//    func didFetchLogo(with image: UIImage)
 }
 
 class ClueViewModel {
