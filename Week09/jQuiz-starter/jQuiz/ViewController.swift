@@ -21,25 +21,25 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.delegate = self
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        
-        viewModel.getClues()
-        viewModel.fetchLogoImage()
+        setupViewModel()
+        setupTableView()
         
         scoreLabel.text = "\(viewModel.points)"
         
-        if SoundManager.shared.isSoundEnabled == false {
-            soundButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
-        } else {
-            soundButton.setImage(UIImage(systemName: "speaker"), for: .normal)
-        }
-        
+        checkSoundEnabledStatus()
         SoundManager.shared.playSound()
+    }
+    
+    private func setupViewModel() {
+        viewModel.delegate = self
+        viewModel.getClues()
+        viewModel.fetchLogoImage()
+    }
+    
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
     }
     
     private func setUpView() {
@@ -48,13 +48,17 @@ class ViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    @IBAction func didPressVolumeButton(_ sender: Any) {
-        SoundManager.shared.toggleSoundPreference()
+    private func checkSoundEnabledStatus() {
         if SoundManager.shared.isSoundEnabled == false {
             soundButton.setImage(UIImage(systemName: "speaker.slash"), for: .normal)
         } else {
             soundButton.setImage(UIImage(systemName: "speaker"), for: .normal)
         }
+    }
+    
+    @IBAction func didPressVolumeButton(_ sender: Any) {
+        SoundManager.shared.toggleSoundPreference()
+        checkSoundEnabledStatus()
     }
     
 }
@@ -94,9 +98,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ClueTableViewCell.reuseIdentifier,
-                                                       for: indexPath) as? ClueTableViewCell else {
-            return UITableViewCell()
+        guard let cell = tableView
+            .dequeueReusableCell(withIdentifier: ClueTableViewCell.reuseIdentifier,
+                                 for: indexPath) as? ClueTableViewCell else {
+                                    return UITableViewCell()
         }
         cell.setupClueTitle(with: viewModel.clues[indexPath.row].answer)
         return cell
