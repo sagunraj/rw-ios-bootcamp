@@ -23,11 +23,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupViewModel()
         setupTableView()
-        
-        scoreLabel.text = "\(viewModel.points)"
-        
+        setupLabels()
         setupSoundIcon()
         SoundManager.shared.playOrStopSound()
+    }
+    
+    private func setupLabels() {
+        scoreLabel.text = "\(viewModel.points)"
+        scoreLabel.font = Fonts.Bold.b1
+        categoryLabel.font = Fonts.Medium.m1
+        clueLabel.font = Fonts.Medium.m2
     }
     
     private func setupViewModel() {
