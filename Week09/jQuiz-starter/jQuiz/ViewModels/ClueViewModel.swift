@@ -45,14 +45,14 @@ class ClueViewModel {
         })
     }
     
-    func fetchLogoImage() {
-        Networking.sharedInstance.getLogoImage { (image, message) in
-            guard let image = image else {
-                self.delegate?.didMeetError(with: message)
-                return
-            }
-            self.delegate?.didFetchLogo(with: image)
-        }
-    }
+//    func fetchLogoImage() {
+//        Networking.sharedInstance.getLogoImage { (image, message) in
+//            guard let image = image else {
+//                self.delegate?.didMeetError(with: message)
+//                return
+//            }
+//            self.delegate?.didFetchLogo(with: image)
+//        }
+//    }
     
 }

@@ -33,7 +33,14 @@ class ViewController: UIViewController {
     private func setupViewModel() {
         viewModel.delegate = self
         viewModel.getClues()
-        viewModel.fetchLogoImage()
+        //        viewModel.fetchLogoImage()
+        if let url = URL(string: "https://cdn1.edgedatg.com/aws/v2/abc/ABCUpdates/blog/2900129/8484c3386d4378d7c826e3f3690b481b/1600x900-Q90_8484c3386d4378d7c826e3f3690b481b.jpg") {
+            UIImageView.setImage(url) { (image) in
+                DispatchQueue.main.async {
+                    self.logoImageView.image = image
+                }
+            }
+        }
     }
     
     private func setupTableView() {

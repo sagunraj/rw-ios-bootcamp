@@ -63,8 +63,8 @@ class Networking {
         task.resume()
     }
     
-    func getLogoImage(completion: @escaping (UIImage?, String) -> Void) {
-        guard let url = URL(string: "https://cdn1.edgedatg.com/aws/v2/abc/ABCUpdates/blog/2900129/8484c3386d4378d7c826e3f3690b481b/1600x900-Q90_8484c3386d4378d7c826e3f3690b481b.jpg") else { return }
+    func getLogoImage(at url: URL, completion: @escaping (UIImage?, String) -> Void) {
+//        guard let url = URL(string: "https://cdn1.edgedatg.com/aws/v2/abc/ABCUpdates/blog/2900129/8484c3386d4378d7c826e3f3690b481b/1600x900-Q90_8484c3386d4378d7c826e3f3690b481b.jpg") else { return }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let task = session.dataTask(with: url) { (data, response, error) in
             guard let response = response as? HTTPURLResponse,
