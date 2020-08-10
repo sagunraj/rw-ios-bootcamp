@@ -10,6 +10,8 @@ import UIKit
 
 final class ViewController: UIViewController {
     
+   
+    @IBOutlet var buttonCollection: [UIButton]!
     @IBOutlet weak private var backgroundImageView: UIImageView!
     @IBOutlet weak private var enlargeButtonTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak private var colorButtonLeadingConstraint: NSLayoutConstraint!
@@ -18,6 +20,8 @@ final class ViewController: UIViewController {
     @IBOutlet weak private var playButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak private var birdImageView: UIImageView!
     @IBOutlet weak private var birdImageViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak private var notificationView: NotificationView!
+    @IBOutlet weak private var notificationViewTopConstraint: NSLayoutConstraint!
     
     private var shouldButtonsSpread = false {
         didSet {
@@ -65,16 +69,44 @@ final class ViewController: UIViewController {
 // MARK: - Actions
 extension ViewController {
     
+    private func setupAnimationView(with property: String) {
+        buttonCollection.forEach { (button) in
+            button.isEnabled = false
+        }
+        notificationView.displayNotification(with: animationProperties[property]! ? .add : .remove)
+        self.notificationViewTopConstraint.constant = 0
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: {
+                        self.view.layoutIfNeeded()
+        }) { _ in
+            self.notificationViewTopConstraint.constant = 175
+            UIView.animate(withDuration: 0.25,
+                           delay: 0.5,
+                           options: .curveEaseInOut,
+                           animations: {
+                            self.view.layoutIfNeeded()
+            })
+            self.buttonCollection.forEach { (button) in
+                button.isEnabled = true
+            }
+        }
+    }
+    
     @IBAction func onColorButtonTap(_ sender: UIButton) {
         animationProperties["color"]?.toggle()
+        setupAnimationView(with: "color")
     }
     
     @IBAction func onJumpButtonTap(_ sender: UIButton) {
         animationProperties["jump"]?.toggle()
+        setupAnimationView(with: "jump")
     }
     
     @IBAction func onEnlargeButtonTap(_ sender: UIButton) {
         animationProperties["enlarge"]?.toggle()
+        setupAnimationView(with: "enlarge")
     }
     
     @IBAction func onPlayButtonTap(_ sender: UIButton) {

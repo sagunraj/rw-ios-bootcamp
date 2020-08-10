@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationView" customModule="FlappyBird" customModuleProvider="target">
+            <connections>
+                <outlet property="iconImageView" destination="Gj9-1a-K5X" id="JA9-Ty-geG"/>
+                <outlet property="notificationTextLabel" destination="Q9n-d7-vtX" id="ObN-fi-kUf"/>
+                <outlet property="wrapperView" destination="r1s-Ln-nNB" id="eei-uf-n2z"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="117"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r1s-Ln-nNB">
+                    <rect key="frame" x="10" y="10" width="394" height="97"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crossmark" translatesAutoresizingMaskIntoConstraints="NO" id="Gj9-1a-K5X">
+                            <rect key="frame" x="10" y="28.5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="Gj9-1a-K5X" secondAttribute="height" multiplier="1:1" id="OJy-gX-M0o"/>
+                                <constraint firstAttribute="height" constant="40" id="see-90-Qje"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9n-d7-vtX">
+                            <rect key="frame" x="60" y="35.5" width="324" height="26.5"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="Gj9-1a-K5X" firstAttribute="leading" secondItem="r1s-Ln-nNB" secondAttribute="leading" constant="10" id="Elj-5b-IxY"/>
+                        <constraint firstItem="Q9n-d7-vtX" firstAttribute="centerY" secondItem="Gj9-1a-K5X" secondAttribute="centerY" id="Jxv-X7-ye6"/>
+                        <constraint firstAttribute="trailing" secondItem="Q9n-d7-vtX" secondAttribute="trailing" constant="10" id="iuq-Cl-yF8"/>
+                        <constraint firstItem="Q9n-d7-vtX" firstAttribute="leading" secondItem="Gj9-1a-K5X" secondAttribute="trailing" constant="10" id="stX-xO-UnI"/>
+                        <constraint firstItem="Gj9-1a-K5X" firstAttribute="centerY" secondItem="r1s-Ln-nNB" secondAttribute="centerY" id="yNX-xR-2CV"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="r1s-Ln-nNB" secondAttribute="trailing" constant="10" id="Hrc-1h-T3J"/>
+                <constraint firstItem="r1s-Ln-nNB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="e7O-xR-jjO"/>
+                <constraint firstAttribute="bottom" secondItem="r1s-Ln-nNB" secondAttribute="bottom" constant="10" id="oAy-6v-xjS"/>
+                <constraint firstItem="r1s-Ln-nNB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="ovQ-WT-nRa"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="137.68115942028987" y="-132.92410714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="crossmark" width="96" height="96"/>
+    </resources>
+</document>
