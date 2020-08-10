@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  FlappyBird
 //
-//  Created by Ashwin Shrestha on 8/10/20.
+//  Created by Sagun Raj Lage on 8/10/20.
 //  Copyright © 2020 Sagun Raj Lage. All rights reserved.
 //
 
